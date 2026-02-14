@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buy With Robux</title>
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #000;
+        }
+
+        .container {
+            background: #111;
+            padding: 50px 80px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(255,255,255,0.1);
+            text-align: center;
+            color: #fff;
+        }
+
+        h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 20px;
+            margin-bottom: 40px;
+        }
+
+        .button {
+            background-color: #fff;
+            color: #000;
+            border: none;
+            padding: 15px 40px;
+            margin: 0 20px;
+            font-size: 20px;
+            cursor: pointer;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            box-shadow: 0 5px 15px rgba(255,255,255,0.2);
+        }
+
+        .button:hover {
+            background-color: #eee; /* Slight gray on hover */
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(255,255,255,0.3);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Buy With Robux</h1>
+        <p>Please select your type:</p>
+        <button class="button" onclick="redirectUser('buyer')">Buyer</button>
+        <button class="button" onclick="redirectUser('patreon')">Patreon</button>
+    </div>
+
+    <script>
+        function redirectUser(type) {
+            if(type === 'buyer') {
+                window.location.href = "https://www.roblox.com/game-pass/961132089/Normal-tracker";
+            } else if(type === 'patreon') {
+                window.location.href = "https://www.roblox.com/game-pass/877750046/patreon-tracker";
+            }
+        }
+    </script>
+</body>
+</html>
