@@ -49,9 +49,14 @@
         }
 
         .button:hover {
-            background-color: #eee; /* Slight gray on hover */
+            background-color: #eee;
             transform: translateY(-3px);
             box-shadow: 0 10px 20px rgba(255,255,255,0.3);
+        }
+
+        /* spacing for bottom button */
+        .back {
+            margin-top: 30px;
         }
     </style>
 </head>
@@ -59,8 +64,13 @@
     <div class="container">
         <h1>Buy With Robux</h1>
         <p>Please select your type:</p>
+
         <button class="button" onclick="redirectUser('buyer')">Normal</button>
         <button class="button" onclick="redirectUser('patreon')">Patreon</button>
+
+        <div class="back">
+            <button class="button" onclick="goBack()">Go Back</button>
+        </div>
     </div>
 
     <script>
@@ -70,6 +80,10 @@
             } else if(type === 'patreon') {
                 window.location.href = "https://www.roblox.com/game-pass/877750046/patreon-tracker";
             }
+        }
+
+        function goBack() {
+            window.location.href = "https://sonytracker.com";
         }
     </script>
 </body>
