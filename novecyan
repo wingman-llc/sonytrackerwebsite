@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exposing Novecyan</title>
+    <style>
+        body {
+            background-color: white;
+            color: black;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h1 {
+            margin-bottom: 30px;
+            font-size: 2.5rem;
+        }
+
+        .gallery {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            max-width: 1000px;
+            width: 100%;
+        }
+
+        img {
+            width: 100%;
+            height: auto;
+            border-radius: 4px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Exposing Novecyan</h1>
+
+    <div class="gallery">
+        <img src="https://media.discordapp.net/attachments/1331347361401798667/1487928267477487748/IMG_6669.png?ex=69caecaf&is=69c99b2f&hm=ac2bfae3851528037ffe0e8001079a83ab37a2a90cede275504ceadf5ddffb53&=&format=webp&quality=lossless&width=1061&height=560" alt="Image 1">
+        
+        <img src="https://media.discordapp.net/attachments/1331347361401798667/1487928267750244563/IMG_6668.png?ex=69caecaf&is=69c99b2f&hm=dacbbd69c037e0b2b155a441cc4a7be3d4c94a2ca922faca4957030f62abbf45&=&format=webp&quality=lossless&width=526&height=788" alt="Image 2">
+        
+        <img src="https://media.discordapp.net/attachments/1331347361401798667/1487928268014223490/IMG_6667.png?ex=69caecaf&is=69c99b2f&hm=983ad1f778ab2ea10f78bf806e55f84c9db86ad62fad65f8e9cea035984eb874&=&format=webp&quality=lossless&width=483&height=789" alt="Image 3">
+        
+        <img src="https://media.discordapp.net/attachments/1331347361401798667/1487928268299702465/IMG_6665.png?ex=69caecaf&is=69c99b2f&hm=f922df4b5a5f4be866d751129d54c4249cd2906190eb8bc3a095974a20fbc117&=&format=webp&quality=lossless&width=489&height=788" alt="Image 4">
+        
+        <img src="https://media.discordapp.net/attachments/1331347361401798667/1487928268530385050/IMG_6663.png?ex=69caecaf&is=69c99b2f&hm=8c2de98317739bf9f2fe422bd454863b3a3a5c723bad09828f173a8a2edf5dd6&=&format=webp&quality=lossless&width=395&height=789" alt="Image 5">
+        
+        <img src="https://media.discordapp.net/attachments/1331347361401798667/1487928268815335535/IMG_6662.png?ex=69caecaf&is=69c99b2f&hm=e49d1d252805f09e5bc26632a5b570d5260d0f331306b5795f97248df5b685f6&=&format=webp&quality=lossless&width=360&height=789" alt="Image 6">
+    </div>
+
+</body>
+</html>
