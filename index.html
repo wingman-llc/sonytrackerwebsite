@@ -3,57 +3,75 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Error: 403</title>
+    <title>Verifying - Wingman Security</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            padding-top: 50px;
-            background-color: #f0f0f0;
-            color: #333;
-        }
-        a {
-            color: #5865F2;
-            text-decoration: none;
-            font-weight: bold;
-        }
-        a:hover {
-            text-decoration: underline;
-        }
-        .container {
-            background-color: #fff;
-            display: inline-block;
-            padding: 30px 50px;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            background-color: #0f172a;
+            color: #f8fafc;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
         }
 
-        /* NEW BUTTON STYLE */
-        .robux-btn{
-            display:inline-block;
-            margin-top:15px;
-            background:#000;
-            color:#fff;
-            padding:12px 20px;
-            border-radius:6px;
-            text-decoration:none;
-            font-weight:600;
+        .container {
+            text-align: center;
         }
-        .robux-btn:hover{
-            opacity:.85;
-            text-decoration:none;
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid #1e293b;
+            border-top: 5px solid #38bdf8;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        h1 {
+            font-size: 1.5rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+
+        .brand {
+            color: #38bdf8;
+            font-weight: bold;
+        }
+
+        .status-text {
+            color: #94a3b8;
+            font-size: 0.9rem;
+            margin-top: 10px;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Hi there!</h1>
-        <p>This website is currently getting created, so if you're here for a gtag tracker press the link below!</p>
-        <p><a href="https://discord.gg/xTSBd4XHb2" target="_blank">https://discord.gg/playertracker</a></p>
 
-        <a class="robux-btn" href="https://sonytracker.com/robux-payment">
-            Robux Payment
-        </a>
+    <div class="container">
+        <div class="spinner"></div>
+        <h1>Verifying with <span class="brand">Wingman Security</span></h1>
+        <p class="status-text">Please wait while we secure your connection...</p>
     </div>
+
+    <script>
+        const minTime = 3000;
+        const maxTime = 6000;
+        const randomDelay = Math.floor(Math.random() * (maxTime - minTime + 1)) + minTime;
+
+        setTimeout(() => {
+            window.location.href = "/home";
+        }, randomDelay);
+        
+        console.log(`Redirecting in ${randomDelay / 1000} seconds...`);
+    </script>
 </body>
 </html>
