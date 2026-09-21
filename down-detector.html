@@ -24,6 +24,25 @@
             margin: 0 auto;
         }
         
+        .home-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #e0e0e0;
+            text-decoration: none;
+            font-size: 14px;
+            padding: 8px 14px;
+            border-radius: 6px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: background 0.2s ease;
+            margin-bottom: 24px;
+        }
+        
+        .home-button:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
         h1 {
             font-size: 32px;
             margin-bottom: 10px;
@@ -169,6 +188,13 @@
 </head>
 <body>
     <div class="container">
+        <a href="https://sonytracker.com/" class="home-button">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                <polyline points="9 22 9 12 15 12 15 22"></polyline>
+            </svg>
+            Home
+        </a>
         <h1>Sony Tracker Status</h1>
         <div class="subtitle">Last 90 days of uptime monitoring</div>
         
