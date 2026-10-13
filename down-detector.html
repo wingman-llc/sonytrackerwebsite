@@ -5,12 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sony Tracker Status</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
             background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 100%);
@@ -18,12 +14,9 @@
             padding: 40px 20px;
             min-height: 100vh;
         }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        
+
+        .container { max-width: 1200px; margin: 0 auto; }
+
         .home-button {
             display: inline-flex;
             align-items: center;
@@ -38,24 +31,11 @@
             transition: background 0.2s ease;
             margin-bottom: 24px;
         }
-        
-        .home-button:hover {
-            background: rgba(255, 255, 255, 0.1);
-        }
-        
-        h1 {
-            font-size: 32px;
-            margin-bottom: 10px;
-            color: #ffffff;
-            font-weight: 600;
-        }
-        
-        .subtitle {
-            color: #888;
-            margin-bottom: 40px;
-            font-size: 14px;
-        }
-        
+        .home-button:hover { background: rgba(255, 255, 255, 0.1); }
+
+        h1 { font-size: 32px; margin-bottom: 10px; color: #ffffff; font-weight: 600; }
+        .subtitle { color: #888; margin-bottom: 40px; font-size: 14px; }
+
         .service {
             background: rgba(255, 255, 255, 0.03);
             border: 1px solid rgba(255, 255, 255, 0.08);
@@ -64,20 +44,15 @@
             margin-bottom: 20px;
             backdrop-filter: blur(10px);
         }
-        
+
         .service-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 12px;
         }
-        
-        .service-name {
-            font-size: 16px;
-            font-weight: 600;
-            color: #ffffff;
-        }
-        
+        .service-name { font-size: 16px; font-weight: 600; color: #ffffff; }
+
         .uptime-percentage {
             font-size: 16px;
             font-weight: 600;
@@ -86,17 +61,9 @@
             background: rgba(76, 175, 80, 0.2);
             color: #4caf50;
         }
-        
-        .uptime-percentage.critical {
-            background: rgba(255, 193, 7, 0.2);
-            color: #ffc107;
-        }
-        
-        .uptime-percentage.warning {
-            background: rgba(156, 39, 176, 0.2);
-            color: #ba68c8;
-        }
-        
+        .uptime-percentage.critical { background: rgba(255, 193, 7, 0.2); color: #ffc107; }
+        .uptime-percentage.warning { background: rgba(156, 39, 176, 0.2); color: #ba68c8; }
+
         .grid-container {
             display: flex;
             gap: 2px;
@@ -107,7 +74,7 @@
             border-radius: 4px;
             overflow: hidden;
         }
-        
+
         .day-square {
             flex: 1;
             height: 100%;
@@ -118,12 +85,7 @@
             position: relative;
             min-width: 0;
         }
-        
-        .day-square:hover {
-            opacity: 0.8;
-            z-index: 10;
-        }
-        
+        .day-square:hover { opacity: 0.8; z-index: 10; }
         .day-square:hover::after {
             content: attr(data-day);
             position: absolute;
@@ -138,15 +100,10 @@
             white-space: nowrap;
             z-index: 20;
         }
-        
-        .day-square.down {
-            background: #ff6b6b;
-        }
-        
-        .day-square.partial {
-            background: #ffc107;
-        }
-        
+        .day-square.down { background: #ff6b6b; }
+        .day-square.partial { background: #ffc107; }
+        .day-square.unknown { background: #333; }
+
         .time-labels {
             display: flex;
             justify-content: space-between;
@@ -155,7 +112,7 @@
             margin-bottom: 16px;
             margin-top: 8px;
         }
-        
+
         .incident-info {
             font-size: 13px;
             color: #aaa;
@@ -163,14 +120,8 @@
             padding-top: 8px;
             border-top: 1px solid rgba(255, 255, 255, 0.05);
         }
-        
-        .incident-info.none {
-            color: #4caf50;
-            border-top: none;
-            padding-top: 0;
-            margin-top: 0;
-        }
-        
+        .incident-info.none { color: #4caf50; border-top: none; padding-top: 0; margin-top: 0; }
+
         .status-badge {
             display: inline-block;
             padding: 2px 8px;
@@ -179,11 +130,10 @@
             font-weight: 600;
             margin-left: 8px;
         }
-        
-        .status-badge.operational {
-            background: rgba(76, 175, 80, 0.2);
-            color: #4caf50;
-        }
+        .status-badge.operational { background: rgba(76, 175, 80, 0.2); color: #4caf50; }
+        .status-badge.partial { background: rgba(255, 193, 7, 0.2); color: #ffc107; }
+        .status-badge.down { background: rgba(255, 107, 107, 0.2); color: #ff6b6b; }
+        .status-badge.unknown { background: rgba(255, 255, 255, 0.1); color: #aaa; }
     </style>
 </head>
 <body>
@@ -196,127 +146,146 @@
             Home
         </a>
         <h1>Sony Tracker Status</h1>
-        <div class="subtitle">Last 90 days of uptime monitoring</div>
-        
+        <div class="subtitle">Loading status data...</div>
+
         <div class="service">
             <div class="service-header">
-                <span class="service-name">Sony Tracker API<span class="status-badge operational">Operational</span></span>
-                <span class="uptime-percentage">100% Uptime</span>
+                <span class="service-name">Sony Tracker API<span class="status-badge unknown">Loading</span></span>
+                <span class="uptime-percentage">--</span>
             </div>
-            <div class="time-labels">
-                <span>90 days ago</span>
-                <span>Today</span>
-            </div>
+            <div class="time-labels"><span>90 days ago</span><span>Today</span></div>
             <div class="grid-container" id="api-grid"></div>
-            <div class="incident-info none">No incidents in the last 90 days</div>
+            <div class="incident-info none"></div>
         </div>
-        
+
         <div class="service">
             <div class="service-header">
-                <span class="service-name">Sony Tracker Bots<span class="status-badge operational">Operational</span></span>
-                <span class="uptime-percentage">99% Uptime</span>
+                <span class="service-name">Sony Tracker Bots<span class="status-badge unknown">Loading</span></span>
+                <span class="uptime-percentage">--</span>
             </div>
-            <div class="time-labels">
-                <span>90 days ago</span>
-                <span>Today</span>
-            </div>
+            <div class="time-labels"><span>90 days ago</span><span>Today</span></div>
             <div class="grid-container" id="bots-grid"></div>
-            <div class="incident-info">Went down for one day</div>
+            <div class="incident-info none"></div>
         </div>
-        
+
         <div class="service">
             <div class="service-header">
-                <span class="service-name">Sony Tracker Free<span class="status-badge operational">Operational</span></span>
-                <span class="uptime-percentage">100% Uptime</span>
+                <span class="service-name">Sony Tracker Free<span class="status-badge unknown">Loading</span></span>
+                <span class="uptime-percentage">--</span>
             </div>
-            <div class="time-labels">
-                <span>90 days ago</span>
-                <span>Today</span>
-            </div>
+            <div class="time-labels"><span>90 days ago</span><span>Today</span></div>
             <div class="grid-container" id="free-grid"></div>
-            <div class="incident-info none">No incidents in the last 90 days</div>
+            <div class="incident-info none"></div>
         </div>
-        
+
         <div class="service">
             <div class="service-header">
-                <span class="service-name">Sony Tracker Basic<span class="status-badge operational">Operational</span></span>
-                <span class="uptime-percentage">100% Uptime</span>
+                <span class="service-name">Sony Tracker Basic<span class="status-badge unknown">Loading</span></span>
+                <span class="uptime-percentage">--</span>
             </div>
-            <div class="time-labels">
-                <span>90 days ago</span>
-                <span>Today</span>
-            </div>
+            <div class="time-labels"><span>90 days ago</span><span>Today</span></div>
             <div class="grid-container" id="basic-grid"></div>
-            <div class="incident-info none">No incidents in the last 90 days</div>
+            <div class="incident-info none"></div>
         </div>
-        
+
         <div class="service">
             <div class="service-header">
-                <span class="service-name">Sony Tracker Normal<span class="status-badge operational">Operational</span></span>
-                <span class="uptime-percentage critical">92% Uptime</span>
+                <span class="service-name">Sony Tracker Normal<span class="status-badge unknown">Loading</span></span>
+                <span class="uptime-percentage">--</span>
             </div>
-            <div class="time-labels">
-                <span>90 days ago</span>
-                <span>Today</span>
-            </div>
+            <div class="time-labels"><span>90 days ago</span><span>Today</span></div>
             <div class="grid-container" id="normal-grid"></div>
-            <div class="incident-info">Went down for a few days in the past 90 days</div>
+            <div class="incident-info none"></div>
         </div>
-        
+
         <div class="service">
             <div class="service-header">
-                <span class="service-name">Sony Tracker Patreon<span class="status-badge operational">Operational</span></span>
-                <span class="uptime-percentage warning">97% Uptime</span>
+                <span class="service-name">Sony Tracker Patreon<span class="status-badge unknown">Loading</span></span>
+                <span class="uptime-percentage">--</span>
             </div>
-            <div class="time-labels">
-                <span>90 days ago</span>
-                <span>Today</span>
-            </div>
+            <div class="time-labels"><span>90 days ago</span><span>Today</span></div>
             <div class="grid-container" id="patreon-grid"></div>
-            <div class="incident-info">Went down for a few days in the past 90 days</div>
+            <div class="incident-info none"></div>
         </div>
-        
+
         <div class="service">
             <div class="service-header">
-                <span class="service-name">Sony Tracker Ultimate<span class="status-badge operational">Operational</span></span>
-                <span class="uptime-percentage">99% Uptime</span>
+                <span class="service-name">Sony Tracker Ultimate<span class="status-badge unknown">Loading</span></span>
+                <span class="uptime-percentage">--</span>
             </div>
-            <div class="time-labels">
-                <span>90 days ago</span>
-                <span>Today</span>
-            </div>
+            <div class="time-labels"><span>90 days ago</span><span>Today</span></div>
             <div class="grid-container" id="ultimate-grid"></div>
-            <div class="incident-info">Went down for one day</div>
+            <div class="incident-info none"></div>
         </div>
     </div>
-    
+
     <script>
-        function generateGrid(elementId, downDays = []) {
-            const grid = document.getElementById(elementId);
-            for (let i = 0; i < 90; i++) {
-                const bar = document.createElement('div');
-                bar.className = 'day-square';
-                bar.setAttribute('data-day', `Day ${i + 1}`);
-                if (downDays.includes(i)) {
-                    bar.classList.add('down');
-                }
-                grid.appendChild(bar);
+        const LOG_URL = 'https://wingman-security.online/down-detector/sonytrak/log.json';
+        const SERVICES = {
+            api: 'api-grid', bots: 'bots-grid', free: 'free-grid', basic: 'basic-grid',
+            normal: 'normal-grid', patreon: 'patreon-grid', ultimate: 'ultimate-grid'
+        };
+        const LABELS = { up: 'Operational', partial: 'Degraded', down: 'Down' };
+
+        function render(gridId, days, updated) {
+            const grid = document.getElementById(gridId);
+            const card = grid.closest('.service');
+            const badge = card.querySelector('.status-badge');
+            const pct = card.querySelector('.uptime-percentage');
+            const info = card.querySelector('.incident-info');
+
+            days = days.slice(-90);
+            while (days.length < 90) days.unshift('unknown');
+
+            grid.innerHTML = '';
+            days.forEach((s, i) => {
+                const el = document.createElement('div');
+                el.className = 'day-square' + (s === 'up' ? '' : ' ' + s);
+                const d = new Date(updated || Date.now());
+                d.setDate(d.getDate() - (89 - i));
+                el.setAttribute('data-day', d.toLocaleDateString() + ': ' + s);
+                grid.appendChild(el);
+            });
+
+            const known = days.filter(s => s !== 'unknown');
+            const down = known.filter(s => s === 'down').length;
+            const partial = known.filter(s => s === 'partial').length;
+            const score = known.length ? (known.length - down - partial * 0.5) / known.length * 100 : 0;
+
+            pct.textContent = score.toFixed(1) + '% Uptime';
+            pct.className = 'uptime-percentage' + (score >= 99 ? '' : score >= 95 ? ' warning' : ' critical');
+
+            const today = days[days.length - 1];
+            badge.textContent = LABELS[today] || 'Unknown';
+            badge.className = 'status-badge ' + (today === 'up' ? 'operational' : today);
+
+            if (down + partial === 0) {
+                info.textContent = 'No incidents in the last 90 days';
+                info.className = 'incident-info none';
+            } else {
+                info.textContent = down + ' day(s) down, ' + partial + ' day(s) degraded in the last 90 days';
+                info.className = 'incident-info';
             }
         }
-        
-        generateGrid('api-grid', []);
-        
-        generateGrid('bots-grid', [45]);
-        
-        generateGrid('free-grid', []);
-        
-        generateGrid('basic-grid', []);
-        
-        generateGrid('normal-grid', [10, 11, 12, 13, 14, 58, 59]);
-        
-        generateGrid('patreon-grid', [22, 23, 24]);
-        
-        generateGrid('ultimate-grid', [70]);
+
+        async function load() {
+            try {
+                const res = await fetch(LOG_URL, { cache: 'no-store' });
+                if (!res.ok) throw new Error('HTTP ' + res.status);
+                const log = await res.json();
+                for (const [key, gridId] of Object.entries(SERVICES)) {
+                    render(gridId, (log.services && log.services[key] && log.services[key].days) || [], log.updated);
+                }
+                document.querySelector('.subtitle').textContent =
+                    'Last 90 days of uptime monitoring · updated ' + new Date(log.updated).toLocaleString();
+            } catch (e) {
+                console.error(e);
+                document.querySelector('.subtitle').textContent = 'Could not load status data';
+            }
+        }
+
+        load();
+        setInterval(load, 60000);
     </script>
 </body>
 </html>
