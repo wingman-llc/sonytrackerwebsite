@@ -1,12 +1,14 @@
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Leak Progrogress</title>
 </head>
 <body>
     <h2>Leak Progrogress:</h2>
-    <pre id="status">Checking...</pre>
+    <pre id="status">Loading...</pre>
 
     <script>
         async function checkFile() {
@@ -14,14 +16,16 @@
 
             try {
                 const response = await fetch(
-                    "http://sonytracker.com/gtcon.txt?t=" + Date.now()
+                    "https://sonytracker.com/gtcon.txt?t=" + Date.now()
                 );
 
-                if (!response.ok) throw new Error();
+                if (!response.ok) {
+                    throw new Error("Request failed");
+                }
 
                 status.textContent = await response.text();
-            } catch {
-                status.textContent = "Check failed";
+            } catch (error) {
+                status.textContent = "Unable to load status.";
             }
         }
 
