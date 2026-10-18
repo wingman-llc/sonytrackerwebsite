@@ -1,0 +1,32 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Leak Progrogress</title>
+</head>
+<body>
+    <h2>Leak Progrogress:</h2>
+    <pre id="status">Checking...</pre>
+
+    <script>
+        async function checkFile() {
+            const status = document.getElementById("status");
+
+            try {
+                const response = await fetch(
+                    "http://sonytracker.com/gtcon.txt?t=" + Date.now()
+                );
+
+                if (!response.ok) throw new Error();
+
+                status.textContent = await response.text();
+            } catch {
+                status.textContent = "Check failed";
+            }
+        }
+
+        checkFile();
+        setInterval(checkFile, 30000);
+    </script>
+</body>
+</html>
