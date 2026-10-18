@@ -1,7 +1,10 @@
+TIMEZONE: UK/BST
+
 Completed:
 - Downloaded on 34 Servers. | 22:10
 - Looking into game files | 22:35
 - ZIP folder | 22:38
+- Uploading Zip | approx: 22:57 
 
 Upcoming:
 - Publish | N/A
