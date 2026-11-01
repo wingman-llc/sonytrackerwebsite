@@ -1,0 +1,150 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Palantir | Gorilla Tag Player Intelligence</title><style>
+:root{--bg:#111418;--p:#1c2127;--p2:#252a31;--bd:#383e47;--tx:#f6f7f9;--mu:#abb3bf;--ac:#4c90f0;--ac2:#2d72d2;--gn:#32a467;--or:#ec9a3c}
+@media (prefers-color-scheme:light){:root.auto{--bg:#f6f7f9;--p:#fff;--p2:#edeff2;--bd:#d3d8de;--tx:#1c2127;--mu:#5f6b7c}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--tx);font:14px/1.5 Inter,system-ui,-apple-system,Segoe UI,sans-serif}
+header{display:flex;align-items:center;justify-content:space-between;padding:14px 24px;background:var(--p);border-bottom:1px solid var(--bd);position:sticky;top:0;z-index:5}
+.t small{display:block;color:var(--mu);font-size:11px;letter-spacing:.12em;text-transform:uppercase}.t b{font-size:18px;font-weight:600}
+.logo{display:flex;align-items:center;gap:10px}.logo svg{height:26px;width:auto}.logo img{height:30px;width:auto;background:#fff;padding:5px 10px;border-radius:3px;display:block}
+main{max-width:1280px;margin:0 auto;padding:24px}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:16px}
+.k,.card{background:var(--p);border:1px solid var(--bd);border-radius:3px}
+.k{padding:14px}.k span{color:var(--mu);font-size:11px;text-transform:uppercase;letter-spacing:.08em}.k b{display:block;font-size:26px;font-weight:600;margin-top:2px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:12px;margin-bottom:16px}
+.card{padding:16px;min-width:0}.card h2{margin:0 0 12px;font-size:12px;text-transform:uppercase;letter-spacing:.1em;color:var(--mu);font-weight:600}
+.bars{display:flex;align-items:flex-end;gap:2px;height:140px}.bars i{flex:1;background:var(--ac2);min-width:2px;border-radius:1px 1px 0 0}.bars i:hover{background:var(--ac)}
+.axis{display:flex;justify-content:space-between;color:var(--mu);font-size:11px;margin-top:6px}
+.row{display:grid;grid-template-columns:minmax(0,1fr) 60px;gap:8px;align-items:center;margin:7px 0;font-size:13px}
+.row div:first-child{min-width:0}.row .n{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.row .b{height:4px;background:var(--p2);margin-top:3px}.row .b u{display:block;height:100%;background:var(--ac2)}.row .v{text-align:right;color:var(--mu);font-variant-numeric:tabular-nums}
+.bar{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+input,select,button{background:var(--p2);color:var(--tx);border:1px solid var(--bd);border-radius:3px;padding:7px 10px;font:inherit}
+input{flex:1;min-width:180px}button{cursor:pointer}button:hover:not(:disabled){background:var(--bd)}button:disabled{opacity:.4;cursor:default}
+.scroll{overflow-x:auto}table{width:100%;border-collapse:collapse;font-size:13px}
+th{text-align:left;padding:8px 10px;background:var(--p2);color:var(--mu);font-size:11px;text-transform:uppercase;letter-spacing:.06em;cursor:pointer;user-select:none;white-space:nowrap;border-bottom:1px solid var(--bd)}
+th:hover{color:var(--tx)}th.s::after{content:" ▲";color:var(--ac)}th.s.d::after{content:" ▼"}
+td{padding:7px 10px;border-bottom:1px solid var(--bd);white-space:nowrap;font-variant-numeric:tabular-nums}tr:hover td{background:var(--p2)}
+.tag{display:inline-block;padding:1px 7px;border-radius:2px;background:var(--p2);border:1px solid var(--bd);font-size:12px}.m{font-family:ui-monospace,Menlo,monospace;font-size:12px}
+.pg{display:flex;justify-content:space-between;align-items:center;margin-top:12px;color:var(--mu);gap:8px;flex-wrap:wrap}
+footer{text-align:center;color:var(--mu);font-size:11px;padding:16px}
+
+/* Refined intelligence workspace */
+:root{--bg:#0b0e12;--p:#121820;--p2:#1a232d;--bd:#263342;--tx:#edf2f7;--mu:#8d9aaa;--ac:#79b8ff;--ac2:#397fc5;--gn:#55c995;--or:#e9ad62}
+body{background:radial-gradient(ellipse at 50% -25%,#1b2b3c 0%,#0b0e12 58%);font-size:14px;letter-spacing:.005em}
+header{min-height:76px;padding:12px clamp(16px,3vw,42px);background:rgba(12,17,23,.88);border-bottom:1px solid rgba(125,155,185,.18);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)}
+.brand{display:flex;align-items:center;gap:22px;min-width:0}
+.logo{display:flex;align-items:center;justify-content:center;padding-right:20px;border-right:1px solid var(--bd);min-width:150px}
+.logo img{height:29px;width:auto;max-width:150px;object-fit:contain;background:transparent;padding:0;border-radius:0;display:block;filter:brightness(0) invert(1)}
+.logo svg{height:26px;width:150px;color:#f3f6fa}
+.t small{font-size:10px;letter-spacing:.16em;color:#8fa2b7;margin-bottom:2px}
+.t b{font-size:16px;letter-spacing:.015em;font-weight:620}
+.live-dot{display:inline-block;width:6px;height:6px;margin-left:7px;vertical-align:middle;border-radius:50%;background:#54c995;box-shadow:0 0 10px #54c995}
+.header-meta{display:flex;align-items:center;gap:14px;color:#8292a5;font-size:10px;letter-spacing:.13em}
+.meta-mark{padding:5px 8px;border:1px solid #294438;border-radius:20px;color:#77d6a9;background:rgba(49,139,94,.09)}
+main{max-width:1440px;padding:30px clamp(16px,3vw,42px) 38px}
+.kpis{gap:14px;margin-bottom:18px}
+.k,.card{background:linear-gradient(145deg,rgba(21,29,39,.96),rgba(16,22,30,.96));border:1px solid rgba(112,139,168,.19);border-radius:9px;box-shadow:0 8px 28px rgba(0,0,0,.12)}
+.k{padding:17px 18px;position:relative;overflow:hidden;transition:border-color .2s,transform .2s}
+.k:before{content:"";position:absolute;top:0;left:18px;right:18px;height:1px;background:linear-gradient(90deg,rgba(121,184,255,.55),transparent)}
+.k:hover{border-color:rgba(121,184,255,.4);transform:translateY(-2px)}
+.k span{font-size:10px;letter-spacing:.13em;color:#91a1b3}
+.k b{font-size:28px;letter-spacing:-.04em;font-weight:620;margin-top:6px}
+.grid{gap:14px;margin-bottom:18px}
+.card{padding:19px;min-width:0}
+.card h2{font-size:10px;letter-spacing:.15em;color:#9aabbd;margin-bottom:16px}
+.bars{height:150px;gap:3px;padding-top:8px}
+.bars i{background:linear-gradient(180deg,#70b7fa,#2d659c);border-radius:3px 3px 0 0;opacity:.88;transition:opacity .18s,filter .18s}
+.bars i:hover{background:linear-gradient(180deg,#a3d3ff,#4d98dc);opacity:1;filter:drop-shadow(0 0 5px rgba(90,166,235,.35))}
+.axis{font-size:10px;color:#8292a5}
+.row{margin:10px 0;gap:12px;font-size:12px}
+.row .b{height:5px;border-radius:8px;background:#202b37;overflow:hidden}
+.row .b u{background:linear-gradient(90deg,#2f75b7,#70b7fa);border-radius:8px}
+.row .v{font-size:11px;color:#a7b6c6}
+.bar{gap:9px;margin-bottom:15px}
+input,select,button{background:#141d27;color:var(--tx);border:1px solid #2b3948;border-radius:6px;padding:9px 11px;font-size:12px;transition:border-color .18s,background .18s}
+input{min-width:210px}
+input::placeholder{color:#748497}
+input:focus,select:focus{outline:none;border-color:#5b9bd8;box-shadow:0 0 0 3px rgba(91,155,216,.12)}
+button{font-weight:550}
+button:hover:not(:disabled){background:#243447;border-color:#496987}
+#ex{background:#1b3a55;border-color:#315d80;color:#cfe8ff}
+#ex:hover{background:#254e70}
+.scroll{border:1px solid rgba(112,139,168,.13);border-radius:7px}
+table{font-size:12px}
+th{padding:11px 12px;background:#18222d;color:#9eafc1;font-size:10px;letter-spacing:.1em;border-bottom:1px solid #304052}
+th.s::after{color:#83c0ff}
+td{padding:10px 12px;border-bottom:1px solid rgba(112,139,168,.12)}
+tr:hover td{background:rgba(74,117,157,.10)}
+.tag{padding:3px 8px;border-radius:4px;background:#1b2d3d;border:1px solid #29445c;color:#b8d9f5;font-size:11px}
+.m{color:#b3c1d0;font-size:11px}
+.pg{font-size:11px;margin-top:14px}
+footer{padding:20px;color:#6f8092;letter-spacing:.04em}
+@media(max-width:700px){
+ header{align-items:flex-start;gap:12px;padding:12px 15px}
+ .brand{gap:12px}.logo{min-width:0;padding-right:12px}.logo img{max-width:112px;height:24px}.logo svg{width:112px;height:22px}
+ .t b{font-size:13px}.t small{font-size:8px}
+ .header-meta{display:none}
+ main{padding:18px 14px 28px}
+ .grid{grid-template-columns:1fr}
+ .kpis{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+ .k{padding:13px}.k b{font-size:23px}
+ .card{padding:14px}
+ input{min-width:100%;flex-basis:100%}
+ .bar select{flex:1;min-width:calc(50% - 8px)}
+ .bar button{flex:1}
+}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;transition:none!important}}
+
+header{justify-content:flex-start;min-height:64px;padding:12px clamp(16px,3vw,42px)}
+.brand{gap:0}
+.logo{justify-content:flex-start;min-width:0;padding:0;border:0}
+.logo img{height:32px;max-width:180px;background:transparent;padding:0;border:0;border-radius:0;filter:brightness(0) invert(1)}
+@media(max-width:700px){header{padding:10px 15px}.logo img{height:27px}}
+</style></head><body>
+<header>
+ <div class="brand">
+  <div class="logo" aria-label="Palantir">
+   <img id="lg" src="https://companieslogo.com/img/orig/PLTR_BIG-45654fcc.png?t=1720244493" alt="Palantir">
+  </div>
+ </div>
+</header>
+<main>
+ <div class="kpis" id="kpis"></div>
+ <div class="grid">
+  <div class="card"><h2>Daily average player count</h2><div class="bars" id="daily"></div><div class="axis" id="dax"></div></div>
+  <div class="card"><h2>Hourly average players (UTC)</h2><div class="bars" id="hourly"></div><div class="axis"><span>00:00</span><span>12:00</span><span>23:00</span></div></div>
+ </div>
+ <div class="grid">
+  <div class="card"><h2>Top player-count observations</h2><div id="top"></div></div>
+  <div class="card"><h2>Lowest player-count observations</h2><div id="low"></div></div>
+ </div>
+ <div class="card">
+  <h2>Player count observations <span id="cnt" style="text-transform:none;letter-spacing:0"></span></h2>
+  <div class="bar">
+   <input id="q" type="search" aria-label="Search observations" placeholder="Search timestamp or player count…">
+   <select id="range"><option value="">All player counts</option><option value="high">7,500+ players</option><option value="mid">5,000–7,499 players</option><option value="low">Under 5,000 players</option></select>
+   <select id="ps"><option>25</option><option>50</option><option>100</option></select>
+   <button id="rs">Reset</button><button id="ex">Export CSV</button>
+  </div>
+  <div class="scroll" role="region" aria-label="Player observations table" tabindex="0"><table><thead><tr id="th"></tr></thead><tbody id="tb"></tbody></table></div>
+  <div class="pg"><span id="pi"></span><span><button id="pv">‹ Prev</button> <button id="nx">Next ›</button></span></div>
+ </div>
+</main>
+<footer>Source: gorilla_tag_players.csv · <span id="gen"></span></footer>
+<script>
+const D={"rows":[{"timestamp":"2026-10-30 11:59:36 UTC","players":2626,"change":0},{"timestamp":"2026-10-30 12:00:00 UTC","players":2634,"change":8},{"timestamp":"2026-10-30 12:30:00 UTC","players":2713,"change":79},{"timestamp":"2026-10-30 13:00:00 UTC","players":2897,"change":184},{"timestamp":"2026-10-30 13:30:00 UTC","players":3135,"change":238},{"timestamp":"2026-10-30 14:00:00 UTC","players":3520,"change":385},{"timestamp":"2026-10-30 14:30:00 UTC","players":3803,"change":283},{"timestamp":"2026-10-30 15:00:00 UTC","players":4097,"change":294},{"timestamp":"2026-10-30 15:30:00 UTC","players":4278,"change":181},{"timestamp":"2026-10-30 16:00:00 UTC","players":4691,"change":413},{"timestamp":"2026-10-30 16:30:00 UTC","players":4818,"change":127},{"timestamp":"2026-10-30 17:00:00 UTC","players":5213,"change":395},{"timestamp":"2026-10-30 17:30:00 UTC","players":5195,"change":-18},{"timestamp":"2026-10-30 18:00:00 UTC","players":5624,"change":429},{"timestamp":"2026-10-30 18:30:00 UTC","players":6093,"change":469},{"timestamp":"2026-10-30 19:00:00 UTC","players":6454,"change":361},{"timestamp":"2026-10-30 19:30:00 UTC","players":7371,"change":917},{"timestamp":"2026-10-30 20:00:00 UTC","players":8073,"change":702},{"timestamp":"2026-10-30 20:30:00 UTC","players":8854,"change":781},{"timestamp":"2026-10-30 21:00:00 UTC","players":9585,"change":731},{"timestamp":"2026-10-30 21:30:00 UTC","players":9827,"change":242},{"timestamp":"2026-10-30 22:00:00 UTC","players":9869,"change":42},{"timestamp":"2026-10-30 22:30:00 UTC","players":9437,"change":-432},{"timestamp":"2026-10-30 23:00:00 UTC","players":8919,"change":-518},{"timestamp":"2026-10-30 23:30:00 UTC","players":9186,"change":267},{"timestamp":"2026-10-31 00:00:00 UTC","players":9006,"change":-180},{"timestamp":"2026-10-31 00:30:00 UTC","players":8907,"change":-99},{"timestamp":"2026-10-31 01:00:00 UTC","players":8751,"change":-156},{"timestamp":"2026-10-31 01:30:00 UTC","players":8572,"change":-179},{"timestamp":"2026-10-31 02:00:00 UTC","players":8038,"change":-534},{"timestamp":"2026-10-31 02:30:00 UTC","players":7133,"change":-905},{"timestamp":"2026-10-31 03:00:00 UTC","players":6888,"change":-245},{"timestamp":"2026-10-31 03:30:00 UTC","players":5802,"change":-1086},{"timestamp":"2026-10-31 04:00:00 UTC","players":4789,"change":-1013},{"timestamp":"2026-10-31 04:30:00 UTC","players":3982,"change":-807},{"timestamp":"2026-10-31 05:00:00 UTC","players":3279,"change":-703},{"timestamp":"2026-10-31 05:30:00 UTC","players":2732,"change":-547},{"timestamp":"2026-10-31 06:00:00 UTC","players":2244,"change":-488},{"timestamp":"2026-10-31 06:30:00 UTC","players":1807,"change":-437},{"timestamp":"2026-10-31 07:00:00 UTC","players":1545,"change":-262},{"timestamp":"2026-10-31 07:30:00 UTC","players":1479,"change":-66},{"timestamp":"2026-10-31 08:00:00 UTC","players":1581,"change":102},{"timestamp":"2026-10-31 08:30:00 UTC","players":1883,"change":302},{"timestamp":"2026-10-31 09:00:00 UTC","players":2046,"change":163},{"timestamp":"2026-10-31 09:30:00 UTC","players":2224,"change":178},{"timestamp":"2026-10-31 10:00:00 UTC","players":2490,"change":266},{"timestamp":"2026-10-31 10:30:00 UTC","players":2702,"change":212},{"timestamp":"2026-10-31 11:00:00 UTC","players":2970,"change":268},{"timestamp":"2026-10-31 11:30:00 UTC","players":3305,"change":335},{"timestamp":"2026-10-31 12:00:00 UTC","players":3643,"change":338},{"timestamp":"2026-10-31 12:30:00 UTC","players":4484,"change":841},{"timestamp":"2026-10-31 13:00:00 UTC","players":5290,"change":806},{"timestamp":"2026-10-31 13:30:00 UTC","players":6134,"change":844},{"timestamp":"2026-10-31 14:00:00 UTC","players":7152,"change":1018},{"timestamp":"2026-10-31 14:30:00 UTC","players":8103,"change":951},{"timestamp":"2026-10-31 15:00:00 UTC","players":8360,"change":257},{"timestamp":"2026-10-31 15:30:00 UTC","players":8949,"change":589},{"timestamp":"2026-10-31 16:00:00 UTC","players":9086,"change":137},{"timestamp":"2026-10-31 16:30:00 UTC","players":8776,"change":-310},{"timestamp":"2026-10-31 17:00:00 UTC","players":8671,"change":-105},{"timestamp":"2026-10-31 17:30:00 UTC","players":8576,"change":-95},{"timestamp":"2026-10-31 18:00:00 UTC","players":8688,"change":112},{"timestamp":"2026-10-31 18:30:00 UTC","players":8957,"change":269},{"timestamp":"2026-10-31 19:00:00 UTC","players":8944,"change":-13},{"timestamp":"2026-10-31 19:30:00 UTC","players":9189,"change":245},{"timestamp":"2026-10-31 20:00:00 UTC","players":9140,"change":-49},{"timestamp":"2026-10-31 20:30:00 UTC","players":8874,"change":-266},{"timestamp":"2026-10-31 21:00:00 UTC","players":8808,"change":-66},{"timestamp":"2026-10-31 21:30:00 UTC","players":7762,"change":-1046},{"timestamp":"2026-10-31 22:00:00 UTC","players":6760,"change":-1002},{"timestamp":"2026-10-31 22:30:00 UTC","players":5291,"change":-1469},{"timestamp":"2026-10-31 23:00:00 UTC","players":4755,"change":-536},{"timestamp":"2026-10-31 23:30:00 UTC","players":4155,"change":-600},{"timestamp":"2026-11-01 00:00:00 UTC","players":4119,"change":-36},{"timestamp":"2026-11-01 00:30:00 UTC","players":4262,"change":143},{"timestamp":"2026-11-01 01:00:00 UTC","players":4629,"change":367}],"daily":[["2026-10-30",5956],["2026-10-31",5890],["2026-11-01",4337]],"hourly":[["00:00 UTC",6574],["01:00 UTC",7317],["02:00 UTC",7586],["03:00 UTC",6345],["04:00 UTC",4386],["05:00 UTC",3006],["06:00 UTC",2026],["07:00 UTC",1512],["08:00 UTC",1732],["09:00 UTC",2135],["10:00 UTC",2596],["11:00 UTC",2967],["12:00 UTC",3368],["13:00 UTC",4364],["14:00 UTC",5644],["15:00 UTC",6421],["16:00 UTC",6843],["17:00 UTC",6914],["18:00 UTC",7340],["19:00 UTC",7990],["20:00 UTC",8735],["21:00 UTC",8996],["22:00 UTC",7839],["23:00 UTC",6754]],"top":[{"timestamp":"2026-10-30 22:00:00 UTC","players":9869,"change":42},{"timestamp":"2026-10-30 21:30:00 UTC","players":9827,"change":242},{"timestamp":"2026-10-30 21:00:00 UTC","players":9585,"change":731},{"timestamp":"2026-10-30 22:30:00 UTC","players":9437,"change":-432},{"timestamp":"2026-10-31 19:30:00 UTC","players":9189,"change":245},{"timestamp":"2026-10-30 23:30:00 UTC","players":9186,"change":267},{"timestamp":"2026-10-31 20:00:00 UTC","players":9140,"change":-49},{"timestamp":"2026-10-31 16:00:00 UTC","players":9086,"change":137},{"timestamp":"2026-10-31 00:00:00 UTC","players":9006,"change":-180},{"timestamp":"2026-10-31 18:30:00 UTC","players":8957,"change":269}],"low":[{"timestamp":"2026-10-31 07:30:00 UTC","players":1479,"change":-66},{"timestamp":"2026-10-31 07:00:00 UTC","players":1545,"change":-262},{"timestamp":"2026-10-31 08:00:00 UTC","players":1581,"change":102},{"timestamp":"2026-10-31 06:30:00 UTC","players":1807,"change":-437},{"timestamp":"2026-10-31 08:30:00 UTC","players":1883,"change":302},{"timestamp":"2026-10-31 09:00:00 UTC","players":2046,"change":163},{"timestamp":"2026-10-31 09:30:00 UTC","players":2224,"change":178},{"timestamp":"2026-10-31 06:00:00 UTC","players":2244,"change":-488},{"timestamp":"2026-10-31 10:00:00 UTC","players":2490,"change":266},{"timestamp":"2026-10-30 11:59:36 UTC","players":2626,"change":0}],"stats":{"observations":76,"latest":4629,"peak":9869,"average":5850,"lowest":1479}};
+const $=id=>document.getElementById(id),fmt=n=>(+n).toLocaleString();
+const O=D.stats;
+$('kpis').innerHTML=[['Player observations',O.observations],['Latest players',O.latest],['Peak players',O.peak],['Average players',O.average],['Lowest players',O.lowest]].map(([a,b])=>`<div class="k"><span>${a}</span><b>${fmt(b)}</b></div>`).join('');
+const bars=(el,data)=>{const mx=Math.max(...data.map(d=>d[1]));$(el).innerHTML=data.map(d=>`<i style="height:${Math.max(2,d[1]/mx*100)}%" title="${d[0]}: ${fmt(d[1])} players"></i>`).join('')};
+bars('daily',D.daily);$('dax').innerHTML=`<span>${D.daily[0][0]}</span><span>${D.daily.at(-1)[0]}</span>`;bars('hourly',D.hourly);
+const list=(el,data)=>{const mx=Math.max(...data.map(d=>d.players));$(el).innerHTML=data.map(d=>`<div class="row"><div><div class="n" title="${d.timestamp}">${d.timestamp}</div><div class="b"><u style="width:${d.players/mx*100}%"></u></div></div><div class="v">${fmt(d.players)}</div></div>`).join('')};
+list('top',D.top);list('low',D.low);
+const cols=[['timestamp','Timestamp'],['players','Players'],['change','Change']];
+$('th').innerHTML=cols.map(c=>`<th data-k="${c[0]}">${c[1]}</th>`).join('');
+let S={k:'timestamp',d:0,p:0};
+function view(){const q=$('q').value.toLowerCase(),r=$('range').value;return D.rows.filter(x=>(!q||`${x.timestamp} ${x.players} ${x.change}`.toLowerCase().includes(q))&&(!r||(r==='high'&&x.players>=7500)||(r==='mid'&&x.players>=5000&&x.players<7500)||(r==='low'&&x.players<5000))).sort((a,b)=>{const x=a[S.k],y=b[S.k];return(typeof x==='number'?x-y:String(x).localeCompare(String(y)))*(S.d?-1:1)})}
+function render(){const v=view(),ps=+$('ps').value,pages=Math.max(1,Math.ceil(v.length/ps));S.p=Math.min(S.p,pages-1);const s=S.p*ps,sl=v.slice(s,s+ps);$('tb').innerHTML=sl.map(r=>`<tr><td class="m">${r.timestamp}</td><td>${fmt(r.players)}</td><td>${r.change>0?'+':''}${fmt(r.change)}</td></tr>`).join('')||'<tr><td colspan="3">No matches</td></tr>';$('cnt').textContent=`· ${fmt(v.length)} observations`;$('pi').textContent=v.length?`${fmt(s+1)}–${fmt(s+sl.length)} of ${fmt(v.length)} · page ${S.p+1}/${pages}`:'0 results';$('pv').disabled=S.p===0;$('nx').disabled=S.p>=pages-1;document.querySelectorAll('th').forEach(t=>t.className=t.dataset.k===S.k?'s'+(S.d?' d':''):'')}
+$('th').onclick=e=>{const k=e.target.dataset.k;if(!k)return;S.d=S.k===k?!S.d:(k==='players'||k==='change'?1:0);S.k=k;S.p=0;render()};
+['q','range','ps'].forEach(i=>$(i).oninput=()=>{S.p=0;render()});$('pv').onclick=()=>{S.p--;render()};$('nx').onclick=()=>{S.p++;render()};$('rs').onclick=()=>{$('q').value='';$('range').value='';$('ps').value='25';S={k:'timestamp',d:0,p:0};render()};
+$('ex').onclick=()=>{const v=view(),e=s=>`"${String(s).replace(/"/g,'""')}"`;const t=[cols.map(c=>c[1]).join(',')].concat(v.map(r=>cols.map(c=>e(r[c[0]])).join(','))).join('\n');const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([t],{type:'text/csv'}));a.download='gorilla_tag_player_counts.csv';a.click()};
+$('gen').textContent=`${fmt(O.observations)} observations analysed`;render();
+</script></body></html>
