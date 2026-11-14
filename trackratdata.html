@@ -98,7 +98,14 @@ header{justify-content:flex-start;min-height:64px;padding:12px clamp(16px,3vw,42
 .logo{justify-content:flex-start;min-width:0;padding:0;border:0}
 .logo img{height:32px;max-width:180px;background:transparent;padding:0;border:0;border-radius:0;filter:brightness(0) invert(1)}
 @media(max-width:700px){header{padding:10px 15px}.logo img{height:27px}}
-html{min-height:100%;background:#0b0e12}body{min-height:100vh;background-repeat:no-repeat;background-attachment:fixed}</style></head><body>
+html{min-height:100%;background:#0b0e12}body{min-height:100vh;background-repeat:no-repeat;background-attachment:fixed}
+.bars{overflow:hidden}.bars i{min-width:1px}.bars{gap:1px}
+.kpis{grid-template-columns:repeat(6,minmax(0,1fr))}
+.g2{grid-template-columns:repeat(2,minmax(0,1fr))}.g3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.k span{display:block;min-height:2.6em}
+@media(max-width:1000px){.g3{grid-template-columns:repeat(2,minmax(0,1fr))}.kpis{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:700px){.g2,.g3{grid-template-columns:1fr}.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}}
+</style></head><body>
 <header>
  <div class="brand">
   <div class="logo" aria-label="Palantir">
@@ -116,7 +123,7 @@ html{min-height:100%;background:#0b0e12}body{min-height:100vh;background-repeat:
   <div class="card"><h2>Largest room sizes at join</h2><div id="top"></div></div>
   <div class="card"><h2>Smallest room sizes at join</h2><div id="low"></div></div>
  </div>
- <div class="grid"><div class="card"><h2>Daily join events</h2><div class="bars" id="dj"></div><div class="axis" id="djx"></div></div><div class="card"><h2>Daily game starts</h2><div class="bars" id="ds"></div><div class="axis" id="dsx"></div></div><div class="card"><h2>Join events by hour (UTC)</h2><div class="bars" id="hj"></div><div class="axis" id="hjx"></div></div><div class="card"><h2>Average users online per day</h2><div class="bars" id="uo"></div><div class="axis" id="uox"></div></div></div><div class="grid"><div class="card"><h2>Join events by weekday</h2><div id="dw"></div></div><div class="card"><h2>Room size distribution</h2><div id="sz"></div></div><div class="card"><h2>Top maps</h2><div id="mp"></div></div><div class="card"><h2>Game modes</h2><div id="gm"></div></div></div><div class="grid"><div class="card"><h2>Regions</h2><div id="rg"></div></div><div class="card"><h2>Map visibility</h2><div id="vs"></div></div><div class="card"><h2>Top mods reporting joins</h2><div id="md"></div></div><div class="card"><h2>Most active rooms</h2><div id="rm"></div></div><div class="card"><h2>Most active players</h2><div id="pl"></div></div></div><div class="card">
+ <div class="grid g2"><div class="card"><h2>Daily join events</h2><div class="bars" id="dj"></div><div class="axis" id="djx"></div></div><div class="card"><h2>Daily game starts</h2><div class="bars" id="ds"></div><div class="axis" id="dsx"></div></div><div class="card"><h2>Join events by hour (UTC)</h2><div class="bars" id="hj"></div><div class="axis" id="hjx"></div></div><div class="card"><h2>Average users online per day</h2><div class="bars" id="uo"></div><div class="axis" id="uox"></div></div></div><div class="grid g3"><div class="card"><h2>Join events by weekday</h2><div id="dw"></div></div><div class="card"><h2>Room size distribution</h2><div id="sz"></div></div><div class="card"><h2>Top maps</h2><div id="mp"></div></div><div class="card"><h2>Game modes</h2><div id="gm"></div></div><div class="card"><h2>Regions</h2><div id="rg"></div></div><div class="card"><h2>Map visibility</h2><div id="vs"></div></div><div class="card"><h2>Top mods reporting joins</h2><div id="md"></div></div><div class="card"><h2>Most active rooms</h2><div id="rm"></div></div><div class="card"><h2>Most active players</h2><div id="pl"></div></div></div><div class="card">
   <h2>Join event log <span id="cnt" style="text-transform:none;letter-spacing:0"></span></h2>
   <div class="bar">
    <input id="q" type="search" aria-label="Search observations" placeholder="Search player, room, map, mod, region…">
@@ -134,7 +141,7 @@ const D={"rows":[{"timestamp":"2026-08-04 10:26:04 UTC","players":3,"change":0,"
 if(D.rows.length){document.getElementById('dash').after(document.getElementById('dash').content);
 const E=!D.rows.length;const $=id=>document.getElementById(id),fmt=n=>(+n).toLocaleString();
 const O=D.stats;
-$('kpis').innerHTML=[['Join events',O.observations],['Latest room size',O.latest],['Peak room size',O.peak],['Average room size',O.average],['Smallest room size',O.lowest]].concat(D.x.kp).map(([a,b])=>`<div class="k"><span>${a}</span><b>${E?'&nbsp;':fmt(b)}</b></div>`).join('');
+$('kpis').innerHTML=[['Join events',O.observations],['Latest room size',O.latest],['Peak room size',O.peak],['Average room size',O.average],['Smallest room size',O.lowest]].concat(D.x.kp,[['Busiest day (joins)',Math.max(...D.x.dayjoins.map(d=>d[1]))]]).map(([a,b])=>`<div class="k"><span>${a}</span><b>${E?'&nbsp;':fmt(b)}</b></div>`).join('');
 const bars=(el,data)=>{const mx=Math.max(1,...data.map(d=>d[1]));$(el).innerHTML=data.map(d=>`<i style="height:${Math.max(2,d[1]/mx*100)}%" title="${d[0]}: ${fmt(d[1])} players"></i>`).join('')};
 bars('daily',D.daily);$('dax').innerHTML=D.daily.length?`<span>${D.daily[0][0]}</span><span>${D.daily.at(-1)[0]}</span>`:'';bars('hourly',D.hourly);
 const list=(el,data)=>{const mx=Math.max(1,...data.map(d=>d.players));$(el).innerHTML=data.map(d=>`<div class="row"><div><div class="n" title="${d.timestamp}">${d.timestamp}</div><div class="b"><u style="width:${d.players/mx*100}%"></u></div></div><div class="v">${fmt(d.players)}</div></div>`).join('')};
